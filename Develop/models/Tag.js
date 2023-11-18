@@ -14,9 +14,8 @@ Tag.init(
     }
   },
   {
-    catagory_name: {
+    tag_name: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
   },
   {
