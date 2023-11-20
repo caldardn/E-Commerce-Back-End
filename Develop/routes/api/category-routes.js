@@ -8,11 +8,14 @@ router.get('/', async (req, res) => {
   // be sure to include its associated Products
   try{
     const categoryData = await Category.findAll({
+      where: {
+        id: req.params.id
+      },
       attributes: ['id', 'category_name'],
       include: [
         {
           model: Product,
-          attributes: ['id', 'product_name','price','stock','category_id'],
+          attributes: ['id', 'product_name', 'price', 'stock', 'category_id'],
         },
       ],
     });
@@ -30,8 +33,8 @@ router.get('/:id', async (req, res) => {
   // find one category by its `id` value
   // be sure to include its associated Products
   try {
-    const categoryFind = await Category.findOne({
-     attributes: ['id', 'category_name'],
+    const categoryFind = await Category.findByPk(req.params.id,{
+    //  attributes: ['id', 'category_name'],
      include: [
        {
          model: Product,
@@ -63,7 +66,7 @@ router.post('/', async (req, res) => {
 router.put('/:id', async (req, res) => {
   // update a category by its `id` value
   try {
-    const categoryUpdate = await Category.update({
+    const categoryUpdate = await Category.update(req.body,{
       where: {
         id: req.params.id,
       },
@@ -80,6 +83,7 @@ router.put('/:id', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
   // delete a category by its `id` value
+  //findbypk then use destroy
   try {
     const categoryData = await Category.destroy({
       where: {
