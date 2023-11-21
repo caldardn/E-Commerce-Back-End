@@ -8,9 +8,6 @@ router.get('/', async (req, res) => {
   // be sure to include its associated Product data
   try{
     const allTags = await Tag.findAll({
-      where: {
-        id: req.params.id
-      },
       attributes: ['id', 'tag_name'],
       include: [
         {
@@ -19,6 +16,11 @@ router.get('/', async (req, res) => {
         }
       ]
     });
+
+    if(allTags.length === 0){
+      res.status(404).json({message: 'No tags found!'});
+      return;
+    }
 
     res.json(allTags);
 

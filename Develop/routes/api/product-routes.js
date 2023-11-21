@@ -21,7 +21,7 @@ try {
         }
       ]
     });
-
+    
     if (allProducts.length === 0) {
       res.status(404).json({ message: 'No products found' });
       return;
@@ -87,7 +87,7 @@ router.post('/', async (req, res) => {
         tagIds: req.body.tagIds
       });
   
-      if (req.body.tagIds.length) {
+      if (req.body.tagIds && req.body.tagIds.length) {
         const prodTagIdArr = req.body.tagIds.map((tag_id) => {
           return {
             product_id: product.id,
